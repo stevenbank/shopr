@@ -1,7 +1,5 @@
 module Shopr
   class TaxRate < ApplicationRecord
-    self.table_name = 'shopr_tax_rates'
-
     include Shopr::AssociatedCountries
 
     # The order address types which may be used when choosing how to apply the tax rate
@@ -38,6 +36,7 @@ module Shopr
       return rate if countries.empty?
       return rate if address_type == 'billing'  && (order.billing_country.nil?   || country?(order.billing_country))
       return rate if address_type == 'delivery' && (order.delivery_country.nil?  || country?(order.delivery_country))
+
       BigDecimal(0)
     end
   end

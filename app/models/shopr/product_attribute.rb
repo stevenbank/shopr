@@ -1,7 +1,5 @@
 module Shopr
   class ProductAttribute < ApplicationRecord
-    self.table_name = 'shopr_product_attributes'
-
     # Validations
     validates :key, presence: true
 
@@ -34,6 +32,7 @@ module Shopr
       index = 0
       array.each do |hash|
         next if hash['key'].blank?
+
         index += 1
         params = hash.merge(searchable: hash['searchable'].to_s == '1',
                             public: hash['public'].to_s == '1',

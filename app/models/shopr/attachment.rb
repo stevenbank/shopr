@@ -1,8 +1,5 @@
 module Shopr
   class Attachment < ApplicationRecord
-    # Set the table name
-    self.table_name = 'shopr_attachments'
-
     # Mount the Carrierwave uploader
     mount_uploader :file, AttachmentUploader
 
@@ -40,7 +37,7 @@ module Shopr
 
     # Is the attachment an image?
     def image?
-      file_type.match(/\Aimage\//).present?
+      file_type.match(%r{\Aimage/}).present?
     end
   end
 end

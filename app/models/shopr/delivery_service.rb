@@ -1,7 +1,5 @@
 module Shopr
   class DeliveryService < ApplicationRecord
-    self.table_name = 'shopr_delivery_services'
-
     # Validations
     validates :name, presence: true
     validates :courier, presence: true
@@ -21,6 +19,7 @@ module Shopr
     # @return [String] the full URL for the order.
     def tracking_url_for(order)
       return nil if tracking_url.blank?
+
       tracking_url = self.tracking_url.dup
       tracking_url.gsub!('{{consignment_number}}', CGI.escape(order.consignment_number.to_s))
       tracking_url.gsub!('{{delivery_postcode}}', CGI.escape(order.delivery_postcode.to_s))

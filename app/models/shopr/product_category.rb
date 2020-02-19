@@ -9,8 +9,6 @@ module Shopr
     acts_as_nested_set  dependent: :restrict_with_exception,
                         after_move: :set_ancestral_permalink
 
-    self.table_name = 'shopr_product_categories'
-
     # Attachments for this product category
     has_many :attachments, as: :parent, dependent: :destroy, class_name: 'Shopr::Attachment'
 
@@ -50,6 +48,7 @@ module Shopr
     # in descending order
     def hierarchy_array
       return [self] unless parent
+
       parent.hierarchy_array.concat [self]
     end
 
